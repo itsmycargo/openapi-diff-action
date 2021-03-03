@@ -1,0 +1,31 @@
+name: OpenAPI Diff
+description: GitHub Action to determine changes in OpenAPI Schema
+author: itsmycargo
+
+inputs:
+  old_schema:
+    description: Previous schema file location
+    required: true
+  new_schema:
+    description: New schema file location
+    required: true
+  changes_output:
+    description: Output file for changes
+    default: openapi-changes.md
+    required: true
+  github-token:
+    description: GitHub Token as provided by secrets
+    default: ${{ github.token }}
+    required: true
+
+outputs:
+  state:
+    description: State of the API changes
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.old_schema }}
+    - ${{ inputs.new_schema }}
+    - ${{ inputs.changes_output }}
