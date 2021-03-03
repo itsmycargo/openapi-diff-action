@@ -3,15 +3,11 @@ description: GitHub Action to determine changes in OpenAPI Schema
 author: itsmycargo
 
 inputs:
-  old_schema:
-    description: Previous schema file location
+  base:
+    description: Base OpenAPI specification
     required: true
-  new_schema:
-    description: New schema file location
-    required: true
-  changes_output:
-    description: Output file for changes
-    default: openapi-changes.md
+  revision:
+    description: Revised OpenAPI specification
     required: true
   github-token:
     description: GitHub Token as provided by secrets
@@ -21,11 +17,14 @@ inputs:
 outputs:
   state:
     description: State of the API changes
+  verdict:
+    description: Changes verdict
+  changes:
+    description: API Changes (as Markdown)
 
 runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
-    - ${{ inputs.old_schema }}
-    - ${{ inputs.new_schema }}
-    - ${{ inputs.changes_output }}
+    - ${{ inputs.base }}
+    - ${{ inputs.revision }}
