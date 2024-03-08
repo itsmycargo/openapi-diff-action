@@ -1,4 +1,4 @@
-FROM openapitools/openapi-diff:latest
+FROM openapitools/openapi-diff:2.0.1
 
 RUN apt-get update \
   && apt-get install -y --no-install-recommends curl jq \
